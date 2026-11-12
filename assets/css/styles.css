@@ -359,13 +359,22 @@ svg { max-width: 100%; }
 .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ---------- Hero ---------- */
+/* ---------- Hero ---------- */
 .hero {
   position: relative;
-  padding: clamp(28px, 6vw, 72px) 0 clamp(40px, 6vw, 80px);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: calc(var(--header-h) + 48px) 0 clamp(40px, 6vw, 80px);
   overflow: hidden;
   background:
-    linear-gradient(90deg, #81b7f5 20%, rgba(96, 158, 230, 0) 60%),
-    url("../img/hero_img.png") right center / auto no-repeat;
+    linear-gradient(90deg, 
+      rgba(129, 183, 245, 0.95) 0%, 
+      rgba(129, 183, 245, 0.7) 30%,
+      rgba(129, 183, 245, 0.3) 50%,
+      rgba(129, 183, 245, 0) 70%
+    ),
+    url("../img/hero_img.png") right center / cover no-repeat;
   scroll-margin-top: calc(var(--header-h) + 8px);
 }
 
