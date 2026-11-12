@@ -363,7 +363,7 @@ svg { max-width: 100%; }
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  min-height: 600px;
+  min-height: 800px;
   max-height: 750px;
   display: flex;
   align-items: center;
