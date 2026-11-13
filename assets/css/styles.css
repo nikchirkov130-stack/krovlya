@@ -776,13 +776,16 @@ input[type="range"]::-moz-range-thumb {
   background: #fff;
 }
 .calc-group legend {
-  margin-left: -4px;
-  padding: 0 8px;
-  font-size: 12px;
+  display: block;
+  width: 100%;
+  margin: 0 0 16px 0;
+  padding: 0;
+  font-size: 13px;
   font-weight: 800;
-  letter-spacing: .09em;
+  letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--blue);
+  text-align: left;
 }
 .calc__summary {
   position: relative;
