@@ -1354,7 +1354,7 @@ input[type="range"]::-moz-range-thumb {
     visibility: visible;
     transform: none;
   }
-  .nav a { padding: 9px 12px; font-size: 17px; }
+  .nav a { padding: 9px 12px; font-size: 17px !important; }
   
   :root { --header-h: 84px; }
   .nav__phone,
