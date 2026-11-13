@@ -779,13 +779,12 @@ input[type="range"]::-moz-range-thumb {
 .calc-group {
   min-width: 0;
   margin: 0;
-  padding: 24px 20px 20px; /* Чуть больше отступ сверху для заголовка */
+  padding: 24px 20px 20px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: #fff;
 }
 
-/* Исправление: legend теперь ведет себя как обычный заголовок и не ломает рамку */
 .calc-group legend {
   display: block;
   width: 100%;
@@ -936,7 +935,13 @@ input[type="range"]::-moz-range-thumb {
 .calc__breakdown dd { margin: 0; color: #fff; font-weight: 700; }
 .calc__note { margin-bottom: 18px; font-size: 12px; line-height: 1.55; color: #b9cdf2; }
 .calc__actions { display: grid; gap: 10px; }
-
+.calc-group legend {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 0 16px 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
 /* ---------- Шаги ---------- */
 .steps { display: grid; gap: 14px; }
 .step {
