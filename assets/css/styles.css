@@ -1114,7 +1114,7 @@ input[type="range"]::-moz-range-thumb {
 .footer__contacts a {
   display: inline-block;
   margin-bottom: 8px;
-  font-size: 19px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--ink);
 }
@@ -1363,7 +1363,7 @@ input[type="range"]::-moz-range-thumb {
 /* ---------- Адаптив: от 1440px ---------- */
 @media (min-width: 1440px) {
   :root { --container: 1320px; --header-h: 84px; }
-  .header__phone strong { font-size: 16px; }
+  .header__phone strong { font-size: 18px; }
   .nav a { padding: 9px 12px; font-size: 15px; }
   .header__cta { font-size: 15px; padding: 12px 22px; }
 }
