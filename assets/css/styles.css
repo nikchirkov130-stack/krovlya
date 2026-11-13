@@ -357,10 +357,9 @@ svg { max-width: 100%; }
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  min-height: 600px;
+  min-height: 700px;
   padding: clamp(28px, 6vw, 72px) 0 clamp(40px, 6vw, 80px);
   overflow: hidden;
-  background: linear-gradient(180deg, #f3f8ff 0%, #ffffff 72%);
   scroll-margin-top: calc(var(--header-h) + 8px);
 }
 
