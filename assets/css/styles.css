@@ -834,7 +834,25 @@ input[type="range"]::-moz-range-thumb {
 .calc__breakdown dd { margin: 0; color: #fff; font-weight: 700; }
 .calc__note { margin-bottom: 18px; font-size: 12px; line-height: 1.55; color: #b9cdf2; }
 .calc__actions { display: grid; gap: 10px; }
+.calc-group {
+  min-width: 0;
+  margin: 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+}
 
+.calc-group__title {
+  margin: 0 0 16px 0;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--blue);
+  text-align: left;
+}
 /* ---------- Шаги ---------- */
 .steps { display: grid; gap: 14px; }
 .step {
