@@ -365,12 +365,6 @@ svg { max-width: 100%; }
   padding: calc(var(--header-h) + 48px) 0 clamp(40px, 6vw, 80px);
   overflow: hidden;
   background:
-    linear-gradient(90deg, 
-      rgba(129, 183, 245, 0.95) 0%, 
-      rgba(129, 183, 245, 0.7) 30%,
-      rgba(129, 183, 245, 0.3) 50%,
-      rgba(129, 183, 245, 0) 70%
-    ),
     url("../img/hero_img.png") right center / cover no-repeat;
   scroll-margin-top: calc(var(--header-h) + 8px);
 }
