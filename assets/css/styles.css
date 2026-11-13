@@ -369,13 +369,13 @@ svg { max-width: 100%; }
 
 .hero__img {
   position: absolute;
-  top: 0;
   right: 0;
   bottom: 0;
+  top: auto;
   width: 52%;
-  height: 100%;
-  object-fit: cover;
-  object-position: right bottom;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
   pointer-events: none;
 }
 
