@@ -374,8 +374,6 @@ svg { max-width: 100%; }
   top: auto;
   width: 62%;
   height: auto;
-  max-height: 100%;
-  object-fit: contain;
   pointer-events: none;
 }
 
