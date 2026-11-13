@@ -358,118 +358,134 @@
 
   if (calcTotal) renderCalc();
 
-/* ---------- Подбор цвета ---------- */
-const colorState = { roof: 0, facade: 0, fence: 0 };
-const SVG_NS = 'http://www.w3.org/2000/svg';
+    /* ---------- Подбор цвета ---------- */
+  const colorState = { roof: 0, facade: 0, fence: 0 };
+  const SVG_NS = 'http://www.w3.org/2000/svg';
 
-const makeSvg = (name, attrs) => {
-  const el = document.createElementNS(SVG_NS, name);
-  Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
-  return el;
-};
+  const makeSvgElement = (name, attrs) => {
+    const element = document.createElementNS(SVG_NS, name);
+    Object.entries(attrs).forEach(([key, value]) => element.setAttribute(key, value));
+    return element;
+  };
 
-// Черепица
-const tiles = $('#svg-tiles');
-if (tiles) {
-  for (let y = 104; y < 214; y += 13) {
-    tiles.appendChild(makeSvg('path', {
-      d: 'M' + (96 + (214 - y) * 0.655) + ' ' + y + ' L' + (624 - (214 - y) * 0.655) + ' ' + y,
-      fill: 'none'
-    }));
-  }
-}
-
-// Сайдинг
-const siding = $('#svg-siding');
-if (siding) {
-  for (let y = 208; y < 342; y += 12) {
-    siding.appendChild(makeSvg('path', { d: 'M150 ' + y + ' L570 ' + y }));
-  }
-}
-
-// Забор
-const fence = $('#svg-fence');
-const fenceLight = [];
-const fenceDark = [];
-
-if (fence) {
-  fence.appendChild(makeSvg('rect', { x: 0, y: 396, width: 720, height: 8, fill: '#000', 'fill-opacity': '.14' }));
-  const rail1 = makeSvg('rect', { x: 0, y: 340, width: 720, height: 7, class: 'tr' });
-  const rail2 = makeSvg('rect', { x: 0, y: 378, width: 720, height: 7, class: 'tr' });
-  fence.appendChild(rail1);
-  fence.appendChild(rail2);
-  fenceDark.push(rail1, rail2);
-
-  for (let x = 4; x < 720; x += 19) {
-    const picket = makeSvg('rect', { x, y: 322, width: 14, height: 76, rx: 2, class: 'tr' });
-    fence.appendChild(picket);
-    fenceLight.push(picket);
+  // Генерация черепицы
+  const tiles = $('#svg-tiles');
+  if (tiles) {
+    for (let y = 104; y < 214; y += 13) {
+      tiles.appendChild(makeSvgElement('path', {
+        d: 'M' + (96 + (214 - y) * 0.655) + ' ' + y + ' L' + (624 - (214 - y) * 0.655) + ' ' + y,
+        fill: 'none'
+      }));
+    }
   }
 
-  for (let x = 59; x < 720; x += 133) {
-    const post = makeSvg('rect', { x, y: 316, width: 18, height: 90, rx: 2, class: 'tr' });
-    fence.appendChild(post);
-    fenceDark.push(post);
+  // Генерация сайдинга
+  const siding = $('#svg-siding');
+  if (siding) {
+    for (let y = 208; y < 342; y += 12) {
+      siding.appendChild(makeSvgElement('path', { d: 'M150 ' + y + ' L570 ' + y }));
+    }
   }
-}
 
-const shadeColor = (hex, factor) => {
-  const v = parseInt(hex.slice(1), 16);
-  const conv = (ch) => clamp(Math.round(ch * factor), 0, 255);
-  return 'rgb(' + conv(v >> 16) + ',' + conv((v >> 8) & 255) + ',' + conv(v & 255) + ')';
-};
+  // Генерация забора
+  const fence = $('#svg-fence');
+  const fenceLight = [];
+  const fenceDark = [];
 
-const paintHouse = () => {
-  const roofColor = RAL.roof[colorState.roof][2];
-  const facadeColor = RAL.facade[colorState.facade][2];
-  const fenceColor = RAL.fence[colorState.fence][2];
+  if (fence) {
+    fence.appendChild(makeSvgElement('rect', { x: 0, y: 396, width: 720, height: 8, fill: '#000', 'fill-opacity': '.14' }));
+    const rail1 = makeSvgElement('rect', { x: 0, y: 340, width: 720, height: 7, class: 'tr' });
+    const rail2 = makeSvgElement('rect', { x: 0, y: 378, width: 720, height: 7, class: 'tr' });
+    fence.appendChild(rail1);
+    fence.appendChild(rail2);
+    fenceDark.push(rail1, rail2);
 
-  const roof = $('#svg-roof');
-  const canopy = $('#svg-canopy');
-  const facade = $('#svg-facade');
+    for (let x = 4; x < 720; x += 19) {
+      const picket = makeSvgElement('rect', { x, y: 322, width: 14, height: 76, rx: 2, class: 'tr' });
+      fence.appendChild(picket);
+      fenceLight.push(picket);
+      fence.appendChild(makeSvgElement('rect', { x: x + 2, y: 324, width: 3, height: 72, fill: '#fff', 'fill-opacity': '.16' }));
+    }
 
-  if (roof) roof.setAttribute('fill', roofColor);
-  if (canopy) canopy.setAttribute('fill', roofColor);
-  if (facade) facade.setAttribute('fill', facadeColor);
+    for (let x = 59; x < 720; x += 133) {
+      const post = makeSvgElement('rect', { x, y: 316, width: 18, height: 90, rx: 2, class: 'tr' });
+      fence.appendChild(post);
+      fenceDark.push(post);
+    }
+  }
 
-  fenceLight.forEach((el) => el.setAttribute('fill', fenceColor));
-  fenceDark.forEach((el) => el.setAttribute('fill', shadeColor(fenceColor, 0.72)));
+  const shadeColor = (hex, factor) => {
+    const value = parseInt(hex.slice(1), 16);
+    const r = value >> 16;
+    const g = (value >> 8) & 255;
+    const b = value & 255;
+    const convert = (channel) => clamp(Math.round(channel * factor), 0, 255);
+    return 'rgb(' + convert(r) + ',' + convert(g) + ',' + convert(b) + ')';
+  };
 
-  ['roof', 'facade', 'fence'].forEach((zone) => {
-    const color = RAL[zone][colorState[zone]];
-    const nameEl = $(`.swatch-group[data-zone="${zone}"] .swatch-group__name`);
-    if (nameEl) nameEl.textContent = 'RAL ' + color[0] + ', ' + colorLabel(color);
-  });
-};
+  const paintHouse = () => {
+    const roofColor = RAL.roof[colorState.roof][2];
+    const facadeColor = RAL.facade[colorState.facade][2];
+    const fenceColor = RAL.fence[colorState.fence][2];
+    
+    const roof = $('#svg-roof');
+    const canopy = $('#svg-canopy');
+    const facade = $('#svg-facade');
 
-const buildColorSwatches = () => {
-  Object.keys(RAL).forEach((zone) => {
-    const container = $(`.swatch-group[data-zone="${zone}"] .swatches`);
-    if (!container) return;
+    if (roof) roof.setAttribute('fill', roofColor);
+    if (canopy) canopy.setAttribute('fill', roofColor);
+    if (facade) facade.setAttribute('fill', facadeColor);
 
-    container.innerHTML = RAL[zone].map((color, index) =>
-      '<button class="swatch' + (index === colorState[zone] ? ' is-active' : '') + '" type="button" ' +
-      'style="--c:' + color[2] + '" data-index="' + index + '" ' +
-      'aria-label="RAL ' + color[0] + ', ' + colorLabel(color) + '"></button>'
-    ).join('');
+    fenceLight.forEach((element) => element.setAttribute('fill', fenceColor));
+    fenceDark.forEach((element) => element.setAttribute('fill', shadeColor(fenceColor, 0.72)));
 
-    container.addEventListener('click', (event) => {
-      const btn = event.target.closest('.swatch');
-      if (!btn) return;
-
-      colorState[zone] = parseInt(btn.dataset.index, 10);
-      $$('.swatch', container).forEach((item, i) => {
-        item.classList.toggle('is-active', i === colorState[zone]);
-      });
-      paintHouse();
+    ['roof', 'facade', 'fence'].forEach((zone) => {
+      const color = RAL[zone][colorState[zone]];
+      const nameEl = $(`.swatch-group[data-zone="${zone}"] .swatch-group__name`);
+      if (nameEl) {
+        const firstLetter = color[1].charAt(0).toUpperCase() + color[1].slice(1);
+        nameEl.textContent = `RAL ${color[0]}, ${firstLetter}`;
+      }
     });
-  });
-};
+  };
 
-if ($('.color-configurator')) {
-  buildColorSwatches();
-  paintHouse();
-}
+  const buildColorSwatches = () => {
+    Object.keys(RAL).forEach((zone) => {
+      const container = $(`.swatch-group[data-zone="${zone}"] .swatches`);
+      if (!container) return;
+
+      container.innerHTML = RAL[zone].map((color, index) => {
+        const isActive = index === colorState[zone];
+        const firstLetter = color[1].charAt(0).toUpperCase() + color[1].slice(1);
+        return `<button class="swatch ${isActive ? 'is-active' : ''}" 
+                        type="button" 
+                        style="--c: ${color[2]}" 
+                        aria-label="Выбрать цвет: RAL ${color[0]} ${firstLetter}"
+                        data-index="${index}">
+                </button>`;
+      }).join('');
+
+      container.addEventListener('click', (event) => {
+        const btn = event.target.closest('.swatch');
+        if (!btn) return;
+
+        const index = parseInt(btn.dataset.index, 10);
+        colorState[zone] = index;
+
+        $$('.swatch', container).forEach((item, i) => {
+          item.classList.toggle('is-active', i === index);
+        });
+
+        paintHouse();
+      });
+    });
+  };
+
+  if ($('.color-configurator')) {
+    buildColorSwatches();
+    paintHouse();
+  }
+
   /* ---------- Модальные окна ---------- */
   const modal = $('#modal');
   const modalBody = $('#modalBody');
