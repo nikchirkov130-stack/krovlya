@@ -355,33 +355,28 @@ svg { max-width: 100%; }
 .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ---------- Hero ---------- */
+/* ---------- Hero ---------- */
 .hero {
-  position: relative;
-  min-height: 700px;
-  padding: clamp(28px, 6vw, 72px) 0 clamp(40px, 6vw, 80px);
-  overflow: hidden;
+  padding: calc(var(--header-h) + 48px) 0 clamp(40px, 6vw, 80px);
+  background: #fff;
   scroll-margin-top: calc(var(--header-h) + 8px);
 }
 
 .hero__bg { display: none; }
 
-.hero__img {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  height: 100%;
-  width: auto;
-  max-width: 62%;
-  object-fit: contain;
-  object-position: right bottom;
-  pointer-events: none;
+.hero__inner {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
 }
 
-.hero__inner {
-  position: relative;
-  z-index: 1; 
-  display: grid;
-  gap: 28px;
+.hero__content { flex: 1 1 56%; max-width: 640px; }
+.hero__media { flex: 1 1 44%; }
+
+.hero__img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 .hero__content { max-width: 640px; }
 .hero h1 {
@@ -1386,30 +1381,7 @@ input[type="range"]::-moz-range-thumb {
   }
   .js .reveal { opacity: 1; transform: none; }
 }
-/* ---------- Адаптив Hero ---------- */
-@media (max-width: 992px) {
-  .hero__img { width: 45%; }
-}
 
-@media (max-width: 768px) {
-  .hero {
-    min-height: auto;
-    padding-bottom: 280px; 
-  }
-  .hero__img {
-    top: auto;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 240px;
-    object-position: center bottom;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero { padding-bottom: 220px; }
-  .hero__img { height: 180px; }
-}
 /* ---------- Адаптив: от 960px (Планшет / Малый десктоп) ---------- */
 @media (min-width: 960px) {
   .burger {
@@ -1442,4 +1414,16 @@ input[type="range"]::-moz-range-thumb {
   .nav__cta {
     display: none;
   }
+}
+/* ---------- Адаптив Hero ---------- */
+@media (max-width: 992px) {
+  .hero__content { flex-basis: 52%; }
+  .hero__media { flex-basis: 48%; }
+}
+
+@media (max-width: 768px) {
+  .hero { padding-bottom: 40px; }
+  .hero__inner { flex-direction: column; }
+  .hero__content { flex: none; max-width: none; }
+  .hero__media { flex: none; width: 100%; max-width: 480px; margin: 0 auto; }
 }
