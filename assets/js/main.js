@@ -273,90 +273,90 @@
     return { sheets, posts, rows, lags, screws, price };
   }
 
-  /* ---------- Расширенный калькулятор ---------- */
-  const calcTotal = $('#calcTotal');
-  let calcSummary = '';
+  // /* ---------- Расширенный калькулятор ---------- */
+  // const calcTotal = $('#calcTotal');
+  // let calcSummary = '';
 
-  function readCalc() {
-    const roofArea = parseFloat($('#roofArea').value) || 0;
-    const roofShape = $('#roofShape');
-    const facadePerimeter = parseFloat($('#facadePerimeter').value) || 0;
-    const facadeHeight = parseFloat($('#facadeHeight').value) || 0;
-    const facadeOpenings = parseFloat($('#facadeOpenings').value) || 0;
-    const fenceLength = parseFloat($('#fenceLength').value) || 0;
-    const fenceHeight = parseFloat($('#fenceHeight').value) || 1.8;
+  // function readCalc() {
+  //   const roofArea = parseFloat($('#roofArea').value) || 0;
+  //   const roofShape = $('#roofShape');
+  //   const facadePerimeter = parseFloat($('#facadePerimeter').value) || 0;
+  //   const facadeHeight = parseFloat($('#facadeHeight').value) || 0;
+  //   const facadeOpenings = parseFloat($('#facadeOpenings').value) || 0;
+  //   const fenceLength = parseFloat($('#fenceLength').value) || 0;
+  //   const fenceHeight = parseFloat($('#fenceHeight').value) || 1.8;
 
-    const roof = roofCalc(roofArea, roofShape.value);
-    const facade = facadeCalc(facadePerimeter, facadeHeight, facadeOpenings);
-    const fence = fenceCalc(fenceLength, fenceHeight);
+  //   const roof = roofCalc(roofArea, roofShape.value);
+  //   const facade = facadeCalc(facadePerimeter, facadeHeight, facadeOpenings);
+  //   const fence = fenceCalc(fenceLength, fenceHeight);
 
-    return {
-      roof,
-      facade,
-      fence,
-      roofArea,
-      roofShapeLabel: roofShape.options[roofShape.selectedIndex].textContent,
-      facadePerimeter,
-      facadeHeight,
-      facadeOpenings,
-      fenceLength,
-      fenceHeight,
-      total: roof.price + facade.price + fence.price
-    };
-  }
+  //   return {
+  //     roof,
+  //     facade,
+  //     fence,
+  //     roofArea,
+  //     roofShapeLabel: roofShape.options[roofShape.selectedIndex].textContent,
+  //     facadePerimeter,
+  //     facadeHeight,
+  //     facadeOpenings,
+  //     fenceLength,
+  //     fenceHeight,
+  //     total: roof.price + facade.price + fence.price
+  //   };
+  // }
 
-  function renderCalc() {
-    if (!calcTotal) return;
+  // function renderCalc() {
+  //   if (!calcTotal) return;
 
-    const data = readCalc();
+  //   const data = readCalc();
 
-    calcTotal.textContent = 'от ' + money(data.total);
-    $('#sumRoof').textContent = 'от ' + money(data.roof.price);
-    $('#sumFacade').textContent = 'от ' + money(data.facade.price);
-    $('#sumFence').textContent = 'от ' + money(data.fence.price);
+  //   calcTotal.textContent = 'от ' + money(data.total);
+  //   $('#sumRoof').textContent = 'от ' + money(data.roof.price);
+  //   $('#sumFacade').textContent = 'от ' + money(data.facade.price);
+  //   $('#sumFence').textContent = 'от ' + money(data.fence.price);
 
-    calcSummary = 'Кровля: ' + ru(data.roofArea) + ' м² (' + data.roofShapeLabel.toLowerCase() + '), ' +
-      'фасад: периметр ' + ru(data.facadePerimeter) + ' м, высота ' + ru(data.facadeHeight) + ' м, проёмы ' + ru(data.facadeOpenings) + ' м², ' +
-      'забор: ' + ru(data.fenceLength) + ' м × ' + ru(data.fenceHeight) + ' м. ' +
-      'Ориентировочная стоимость: ' + money(data.total) + '.';
-  }
+  //   calcSummary = 'Кровля: ' + ru(data.roofArea) + ' м² (' + data.roofShapeLabel.toLowerCase() + '), ' +
+  //     'фасад: периметр ' + ru(data.facadePerimeter) + ' м, высота ' + ru(data.facadeHeight) + ' м, проёмы ' + ru(data.facadeOpenings) + ' м², ' +
+  //     'забор: ' + ru(data.fenceLength) + ' м × ' + ru(data.fenceHeight) + ' м. ' +
+  //     'Ориентировочная стоимость: ' + money(data.total) + '.';
+  // }
 
-  // Синхронизация range ↔ number
-  $$('input[type="range"][data-sync]').forEach((range) => {
-    const number = document.getElementById(range.dataset.sync);
-    if (!number) return;
+  // // Синхронизация range ↔ number
+  // $$('input[type="range"][data-sync]').forEach((range) => {
+  //   const number = document.getElementById(range.dataset.sync);
+  //   if (!number) return;
 
-    const min = parseFloat(range.min) || 0;
-    const max = parseFloat(range.max) || 100;
+  //   const min = parseFloat(range.min) || 0;
+  //   const max = parseFloat(range.max) || 100;
 
-    range.addEventListener('input', () => {
-      number.value = range.value;
-      paintRange(range);
-      renderCalc();
-    });
+  //   range.addEventListener('input', () => {
+  //     number.value = range.value;
+  //     paintRange(range);
+  //     renderCalc();
+  //   });
 
-    number.addEventListener('input', () => {
-      const value = clamp(parseFloat(number.value) || 0, min, max);
-      range.value = value;
-      paintRange(range);
-      renderCalc();
-    });
+  //   number.addEventListener('input', () => {
+  //     const value = clamp(parseFloat(number.value) || 0, min, max);
+  //     range.value = value;
+  //     paintRange(range);
+  //     renderCalc();
+  //   });
 
-    number.addEventListener('blur', () => {
-      const value = clamp(parseFloat(number.value) || 0, min, max);
-      number.value = value;
-      range.value = value;
-      paintRange(range);
-      renderCalc();
-    });
-  });
+  //   number.addEventListener('blur', () => {
+  //     const value = clamp(parseFloat(number.value) || 0, min, max);
+  //     number.value = value;
+  //     range.value = value;
+  //     paintRange(range);
+  //     renderCalc();
+  //   });
+  // });
 
-  ['#roofShape', '#fenceHeight'].forEach((selector) => {
-    const element = $(selector);
-    if (element) element.addEventListener('change', renderCalc);
-  });
+  // ['#roofShape', '#fenceHeight'].forEach((selector) => {
+  //   const element = $(selector);
+  //   if (element) element.addEventListener('change', renderCalc);
+  // });
 
-  if (calcTotal) renderCalc();
+  // if (calcTotal) renderCalc();
 
     /* ---------- Подбор цвета ---------- */
   const colorState = { roof: 0, facade: 0, fence: 0 };
